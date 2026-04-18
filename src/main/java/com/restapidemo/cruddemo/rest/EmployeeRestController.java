@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import tools.jackson.databind.json.JsonMapper;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
@@ -44,11 +45,21 @@ return dbEmployee;
         Employee dbEmployee= employeeService.save(employee);
         return dbEmployee;
     }
+@PatchMapping("/employees/{employeeId}")
 
- 
-
-    
-
-
+public Employee patchEmployee(@PathVariable int employeeId,@RequestBody Map<String,Object> patchPayLoad){
+ Employee  TempEmployee= employeeService.findById(employeeId);
+//THROW EXCEPTION IF ITS NULL
+    if(TempEmployee==null){
+        throw new RuntimeException("Employee is null " + employeeId);
+    }
+//Throw exception if body contains id key
+    if(patchPayLoad.containsKey("id")){
+        throw new RuntimeException("Employee Id not allowed in request body" + employeeId);
+    }
+    Employee patchedemployee = jsonMapper.updateValue(TempEmployee,patchPayLoad);
+    Employee DbEmployee = employeeService.save(patchedemployee);
+    return DbEmployee;
+    }
 
 }
