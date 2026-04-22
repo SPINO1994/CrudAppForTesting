@@ -53,7 +53,7 @@ public Employee patchEmployee(@PathVariable int employeeId,@RequestBody Map<Stri
     if(TempEmployee==null){
         throw new RuntimeException("Employee is null " + employeeId);
     }
-//Throw exception if body contains id key "asd"
+//Throw exception if body contains id key "asdd"
     if(patchPayLoad.containsKey("id")){
         throw new RuntimeException("Employee Id not allowed in request body" + employeeId);
     }
@@ -61,5 +61,18 @@ public Employee patchEmployee(@PathVariable int employeeId,@RequestBody Map<Stri
     Employee DbEmployee = employeeService.save(patchedemployee);
     return DbEmployee;
     }
+
+    @DeleteMapping("/employees/{EmployeeId}")
+    public String deleteEmployee(@PathVariable int EmployeeId){
+        Employee FoundEmployee = employeeService.findById(EmployeeId);
+        if(FoundEmployee==null){
+            System.out.println("Could find an employee with and id :"+EmployeeId);
+        }
+
+        employeeService.deletebyID(EmployeeId);
+        return "deleted employee id - "+EmployeeId;
+
+    }
+
 
 }
