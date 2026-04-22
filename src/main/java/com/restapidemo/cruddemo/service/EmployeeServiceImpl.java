@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class EmployeeServiceImpl implements EmployeeService {
+public class EmployeeServiceImpl implements EmployeeService{
 
 private EmployeeRepository employeeRepository;
 
@@ -34,11 +34,11 @@ private EmployeeRepository employeeRepository;
         return employeeRepository.save(employee);
     }
 
+
     @Override
     public void deleteById(int id) {
-        employeeRepository.deleteById(id);
+employeeRepository.deleteById(id);
     }
-
 
     @Override
     public List<Employee> findAll() {

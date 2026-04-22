@@ -68,7 +68,7 @@ public Employee patchEmployee(@PathVariable int employeeId,@RequestBody Map<Stri
             System.out.println("Could find an employee with and id :"+EmployeeId);
         }
 
-        employeeService.deletebyID(EmployeeId);
+        employeeService.deleteById(EmployeeId);
         return "deleted employee id - "+EmployeeId;
 
     }
